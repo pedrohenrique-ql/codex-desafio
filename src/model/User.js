@@ -15,13 +15,33 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    whatsapp: {
+    cpf: {
         type: String,
         required: true
     },
-    foto: {
+    job_position: {
         type: String,
         required: true
+    },
+    phone_number: {
+        type: String,
+        required: true
+    },
+    github: {
+        type: String,
+        required: true
+    },
+    linkedin: {
+        type: String,
+        required: true
+    },
+    instagram: {
+        type: String,
+        required: false
+    },
+    profile_picture: {
+        type: String,
+        required: false
     },
     is_enable: {
         type: Boolean,
@@ -32,15 +52,7 @@ const UserSchema = new Schema({
         type: Number,
         required: false,
     },
-    token_list: {
-        type: [String]
-    },
-    id_fcm: {
-        type: String,
-        required: false,
-        default: null
-    },
-    diretor: {
+    director: {
         type: Boolean,
         required: true
     }
