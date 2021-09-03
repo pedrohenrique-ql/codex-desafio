@@ -19,21 +19,21 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    job_position: {
-        type: String,
-        required: true
-    },
     phone_number: {
         type: String,
         required: true
     },
+    job_position: {
+        type: String,
+        required: false
+    },
     github: {
         type: String,
-        required: true
+        required: false
     },
     linkedin: {
         type: String,
-        required: true
+        required: false
     },
     instagram: {
         type: String,

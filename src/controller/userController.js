@@ -14,6 +14,7 @@ const UserController = {
             if (await Users.findOne({ email: user_data.email })) return res.status(400).send({ erro: 'Usuário já registrado!' })
 
             const user = await Users.create(user_data)
+            
             user.password = undefined
 
             return res.status(201).send({user, token: createUserToken(user.id)})
@@ -30,6 +31,7 @@ const UserController = {
 
         try {
             const user = await Users.findOne({ email })
+
             if (!user ) return res.status(400).send({ erro: 'Usuário não cadastrado' })
 
             const pass_ok = await bcrypt.compare(password, user.password)
@@ -37,6 +39,7 @@ const UserController = {
             if (!pass_ok) res.status(401).send({ error: 'Senha inválida' })
 
             user.password = undefined
+
             return res.send({user, token: createUserToken(user.id)})
 
         } catch (err) {
@@ -50,13 +53,32 @@ const UserController = {
         try {
             const user = await Users.findByIdAndUpdate(id, req.body)
             
-            if (!user) return res.status(400).send({ erro: 'Não foi possível realizar o update' })
+            if (!user) return res.status(400).send({ error: 'Id não encontrado' })
+
+            user.password = undefined
 
             return res.status(200).send(user)
 
         } catch (err) {
             return res.status(500).send({ error: err.message })
         } 
+    },
+
+    async visit (req, res) {
+        const { id } = req.params
+
+        try {
+            const user = await Users.findById(id, req.body)
+
+            if (!user) return res.status(400).send({ error: 'Id não encontrado' })
+
+            user.password = undefined
+            
+            return res.status(200).send(user)
+
+        } catch (err) {
+            return res.status(500).send({ error: err.message })
+        }
     }
 }
 
