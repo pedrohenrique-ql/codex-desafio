@@ -30,7 +30,7 @@ const UserController = {
         if (!email || !password) return res.status(400).send({ error: 'Dados insuficientes!' })
 
         try {
-            const user = await Users.findOne({ email })
+            const user = await Users.findOne({ email }).select('+password')
 
             if (!user ) return res.status(400).send({ erro: 'Usuário não cadastrado' })
 

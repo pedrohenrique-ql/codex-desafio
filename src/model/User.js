@@ -14,6 +14,7 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
+        select: false
     },
     cpf: {
         type: String,
@@ -26,6 +27,10 @@ const UserSchema = new Schema({
     job_position: {
         type: String,
         required: false
+    },
+    director: {
+        type: Boolean,
+        required: true
     },
     github: {
         type: String,
@@ -51,10 +56,6 @@ const UserSchema = new Schema({
     code: {
         type: Number,
         required: false,
-    },
-    director: {
-        type: Boolean,
-        required: true
     }
 },
     {
