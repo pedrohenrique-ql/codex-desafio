@@ -53,10 +53,6 @@ const UserSchema = new Schema({
         required: false,
         default: false
     },
-    code: {
-        type: Number,
-        required: false,
-    }
 },
     {
         timestamps: true,

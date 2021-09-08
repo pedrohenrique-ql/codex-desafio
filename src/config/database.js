@@ -8,7 +8,7 @@ module.exports = () =>  {
     } else if (process.env.NODE_ENV === "dev") {
         DB_URL = config.db.develop;
     }
-    
+    console.log(DB_URL)
     mongoose.set('useFindAndModify', false);
     mongoose.connection.on('connected', () => {
         console.log('Conectado com o banco de dados!');
