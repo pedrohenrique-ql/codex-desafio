@@ -4,7 +4,7 @@
   "description": "API para gerenciamento de projetos",
   "main": "index.js",
   "scripts": {
-    "start": "SET NODE_ENV=prod&&node src/server.js",
+    "start": "SET NODE_ENV=prod && node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "SET NODE_ENV=dev&&nodemon src/server.js"
   },
