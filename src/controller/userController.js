@@ -79,6 +79,17 @@ const UserController = {
         } catch (err) {
             return res.status(500).send({ error: err.message })
         }
+    },
+
+    async list (req, res) {
+        try {
+            const users = await Users.find({})
+
+            return res.status(200).send(users) 
+
+        } catch (err) {
+            return res.status(500).send({ error: err.message })
+        }
     }
 }
 
