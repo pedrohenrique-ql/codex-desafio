@@ -51,7 +51,7 @@ const UserController = {
         const { id } = req.params
 
         try {
-            const user = await Users.findByIdAndUpdate(id, req.body)
+            const user = await Users.findByIdAndUpdate(id, req.body, { new: true })
             
             if (!user) return res.status(400).send({ error: 'Id não encontrado' })
 
@@ -75,6 +75,17 @@ const UserController = {
             user.password = undefined
             
             return res.status(200).send(user)
+
+        } catch (err) {
+            return res.status(500).send({ error: err.message })
+        }
+    },
+
+    async list (req, res) {
+        try {
+            const users = await Users.find({})
+
+            return res.status(200).send(users) 
 
         } catch (err) {
             return res.status(500).send({ error: err.message })

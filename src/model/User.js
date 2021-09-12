@@ -48,15 +48,6 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
-    is_enable: {
-        type: Boolean,
-        required: false,
-        default: false
-    },
-    code: {
-        type: Number,
-        required: false,
-    }
 },
     {
         timestamps: true,
