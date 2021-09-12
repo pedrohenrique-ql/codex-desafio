@@ -51,7 +51,7 @@ const UserController = {
         const { id } = req.params
 
         try {
-            const user = await Users.findByIdAndUpdate(id, req.body)
+            const user = await Users.findByIdAndUpdate(id, req.body, { new: true })
             
             if (!user) return res.status(400).send({ error: 'Id não encontrado' })
 
