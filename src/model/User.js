@@ -30,7 +30,7 @@ const UserSchema = new Schema({
     },
     director: {
         type: Boolean,
-        required: true
+        required: false
     },
     github: {
         type: String,
@@ -48,6 +48,11 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
+        required: false
+    }]
 },
     {
         timestamps: true,

@@ -1,13 +1,29 @@
 const Projects = require('../model/Project')
+const User = require('../model/User')
+
+async function allocateProject (team, id) {
+    for (var i = 0; i < team.length; i++) {
+        await User.findById(team[i], function (err, user) {
+            if (err) {
+                return res.status(401).send({ error: 'Usuario não encontrado' })
+            } else {
+                user.projects.push({ _id: id})
+            }
+        })
+    }
+}
 
 const ProjectController = {
     async createProject (req, res) {
-        const project_data = req.body
+        const { name, description, team, start_date, end_date } = req.body
 
         try {
-            if (await Projects.findOne({ name: project_data.name })) return res.status(400).send({ error: 'Projeto já registrado!' })
+            if (await Projects.findOne({ name })) return res.status(400).send({ error: 'Projeto já registrado!' })
 
-            const project = await Projects.create(project_data)
+            const project = await Projects.create({ name, description, team, start_date, end_date })
+
+            allocateProject(team, project._id)
+            project.save()
             
             return res.status(201).send(project) 
 
