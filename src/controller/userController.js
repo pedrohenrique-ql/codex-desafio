@@ -83,7 +83,7 @@ const UserController = {
 
     async list (req, res) {
         try {
-            const users = await Users.find({}).populate('projects')
+            const users = await Users.find({})
 
             return res.status(200).send(users)
 
