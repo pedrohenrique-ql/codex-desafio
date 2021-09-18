@@ -68,7 +68,7 @@ const UserController = {
         const { id } = req.params
 
         try {
-            const user = await Users.findById(id, req.body)
+            const user = await Users.findById(id, req.body).populate('projects')
 
             if (!user) return res.status(400).send({ error: 'Id não encontrado' })
 
@@ -85,7 +85,7 @@ const UserController = {
         try {
             const users = await Users.find({})
 
-            return res.status(200).send(users) 
+            return res.status(200).send(users)
 
         } catch (err) {
             return res.status(500).send({ error: err.message })
