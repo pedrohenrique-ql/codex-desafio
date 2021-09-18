@@ -7,5 +7,6 @@ router.get('/:id', authorizeUser, UserController.visit)
 router.post('/register', UserController.createUser)
 router.post('/auth', UserController.authUser)
 router.put('/update/:id', authorizeUser, UserController.update)
+router.delete('/delete/:id', authorizeUser, UserController.delete)
 
 module.exports = router

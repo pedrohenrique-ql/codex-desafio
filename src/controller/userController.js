@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const createUserToken = (userId) => {
-    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '7d' })
+    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1d' })
 }
 
 const UserController = {
@@ -86,6 +86,21 @@ const UserController = {
             const users = await Users.find({})
 
             return res.status(200).send(users)
+
+        } catch (err) {
+            return res.status(500).send({ error: err.message })
+        }
+    },
+
+    async delete (req, res) {
+        const { id } = req.params
+
+        try {
+            const user = await Users.findByIdAndRemove(id, req.body)
+
+            if (!user) return res.status(400).send({ error: 'Id não encontrado' })
+            
+            return res.status(200).send(user)
 
         } catch (err) {
             return res.status(500).send({ error: err.message })
