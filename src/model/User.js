@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
     name: {
@@ -30,7 +30,7 @@ const UserSchema = new Schema({
     },
     director: {
         type: Boolean,
-        required: true
+        required: false
     },
     github: {
         type: String,
@@ -48,17 +48,22 @@ const UserSchema = new Schema({
         type: String,
         required: false
     },
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
+        required: false
+    }]
 },
     {
         timestamps: true,
     });
 
 UserSchema.pre('save', async function (next) {
-    let user = this
-    if (!user.isModified('password')) return next()
+    let user = this;
+    if (!user.isModified('password')) return next();
 
-    user.password = await bcrypt.hash(user.password, 10)
-    return next()
-})
+    user.password = await bcrypt.hash(user.password, 10);
+    return next();
+});
 
 module.exports = model('User', UserSchema);
