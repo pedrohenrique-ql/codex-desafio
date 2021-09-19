@@ -81,7 +81,7 @@ const ProjectController = {
 
     async list (req, res) {
         try {
-            const projects = await Projects.find().populate('team')
+            const projects = await Projects.find()
 
             return res.status(200).send(projects) 
 
