@@ -4,8 +4,11 @@ const User = require('../model/User')
 async function allocateProject (team, id) {
     for (var i = 0; i < team.length; i++) {
         const user = await User.findById(team[i]._id)
-        user.projects.push({ _id: id})
-        user.save()
+
+        if (!user.projects.includes(id)) {
+            user.projects.push({ _id: id})
+            user.save()
+        }
     }
 }
 
@@ -19,7 +22,6 @@ const ProjectController = {
             const project = await Projects.create({ name, description, team, start_date, end_date })
 
             allocateProject(team, project._id)
-
             project.save()
             
             return res.status(201).send(project) 
@@ -36,6 +38,9 @@ const ProjectController = {
             const project = await Projects.findByIdAndUpdate(id, req.body, { new: true }).populate('team')
             
             if (!project) return res.status(400).send({ error: 'Id não encontrado' })
+
+            allocateProject(project.team, project._id)
+            project.save()
 
             return res.status(200).send(project)
 
